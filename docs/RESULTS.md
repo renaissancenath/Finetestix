@@ -61,6 +61,6 @@ Each defect is planted in an in-memory copy of real data, 10 seeds each. The cle
 
 Total: 99 of 100 detected, 0 false alarms. A real finding along the way: the ULB data contains transactions whose model features are identical but whose time differs, so a random split puts some of them in both train and test. Fintestix reports this on the unmodified data.
 
-## Not run yet
+## Scope
 
-Random split on time-ordered data needs the Lending Club file, which is not redistributed. It is listed as not run rather than estimated.
+The defect "random split on time-ordered data" needs the Lending Club file, which is not redistributed, so it is outside this benchmark rather than estimated.

@@ -3,6 +3,11 @@
 </p>
 
 <p align="center">
+  <a href="https://fintestix.onrender.com"><img src="https://img.shields.io/badge/live_demo-fintestix.onrender.com-C27C00?style=for-the-badge" alt="Live demo: fintestix.onrender.com"></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/status-working_prototype-0B5D4B" alt="Status: working prototype">
   <img src="https://img.shields.io/github/last-commit/renaissancenath/Finetestix?color=0B5D4B&label=last%20commit" alt="Last commit">
   <img src="https://img.shields.io/badge/license-all%20rights%20reserved-0B5D4B" alt="All rights reserved">
   <br>
@@ -24,11 +29,13 @@
 
 <p align="center">
   <b>Fintestix checks financial datasets, models and decision rules, and shows the evidence behind every finding.</b><br>
+  <a href="https://fintestix.onrender.com">Live demo</a> ·
   <a href="#see-it">See it</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="#architecture">Architecture</a> ·
   <a href="#measured-results">Results</a> ·
-  <a href="#engineering">Engineering</a>
+  <a href="#proof">Proof</a> ·
+  <a href="#skills-and-tools">Skills</a>
 </p>
 
 <picture>
@@ -131,6 +138,49 @@ Accuracy is 99.96% for LightGBM, but a model that flags nothing already scores 9
 
 The Fault Checker found **99 of 100** defects planted in copies of real data (leakage, train-test contamination, flipped labels, numbers stored as text, bad thresholds, broken prediction files, rule misfires) with **0 false alarms** on the clean data.
 
+## Proof
+
+Numbers are only worth something if you can check them. These come from real runs, not from a slide.
+
+<details open>
+<summary><b>Executed notebook: training and independent metric check</b></summary>
+<br>
+<img src="docs/images/proof-notebook.png" alt="Executed notebook cells: results table for four models on the ULB test split, the statement that all metrics match scikit-learn, LightGBM at different thresholds, and the printed summary: accuracy 99.9561%, PR-AUC 0.886, 81.6% of fraud caught with 97.6% of alerts real fraud; German Credit accuracy 74 to 75%.">
+</details>
+
+<details>
+<summary><b>Quality gate: 97 backend tests, 53 frontend tests, 2 browser runs, all checks passed</b></summary>
+<br>
+<img src="docs/images/proof-tests.png" alt="Terminal output of scripts/check.sh: lint passed, mypy strict with no issues, no known vulnerabilities, 97 backend tests passed with 82% coverage overall and 89% on analysis services, migration guard passed, 53 frontend tests passed, npm audit 0 vulnerabilities, licence check 0 problems, both Playwright runs passed, All checks passed.">
+</details>
+
+<details>
+<summary><b>Deployed: live site and health check</b></summary>
+<br>
+<img src="docs/images/proof-live.png" alt="Screenshot of https://fintestix.onrender.com showing the landing page; the health endpoint returns status ok.">
+</details>
+
+<details>
+<summary><b>Languages in the source repository</b></summary>
+<br>
+<img src="docs/images/proof-languages.png" alt="GitHub language bar for the private source repository: Python 48.2%, TypeScript 30.5%, Jupyter Notebook 19.5%, PowerShell, Shell and JavaScript; beside it a table of hand-written lines: Python 10,844 in 92 files, TypeScript 6,750 in 66 files, plus YAML, JavaScript, notebook, CSS, Shell, PowerShell, Dockerfile, HTML and SQL.">
+</details>
+
+## Skills and tools
+
+| Area | Applied in this project |
+|---|---|
+| **Applied ML** | Imbalanced classification, PR-AUC over accuracy, threshold optimisation, leakage detection by ablation, calibration, stratified, temporal and group splits, validation-only tuning, reproducible seeds |
+| **Data engineering** | CSV, XLSX and Parquet ingestion, schema detection, column mapping, data quality checks, SHA-256 provenance |
+| **Backend** | Python, FastAPI, Pydantic, SQLAlchemy 2, Alembic migrations, REST API with an OpenAPI contract, background job queue |
+| **Frontend** | React, TypeScript (strict), Vite, Tailwind, Radix UI, TanStack Query, React Hook Form, Zod, Recharts, accessible design system |
+| **Databases** | PostgreSQL 16, least-privilege roles, append-only tables with triggers, `SKIP LOCKED` job queue |
+| **Security** | Argon2id, server-side sessions, CSRF, rate limiting, email one-time codes, TOTP 2FA, CSP, OWASP practices, secret scanning |
+| **Testing** | pytest, Hypothesis property tests, Vitest, Testing Library, Playwright end-to-end, axe accessibility, 89% service coverage |
+| **DevOps and cloud** | Docker, Docker Compose, GitHub Actions CI, Render, Neon PostgreSQL, S3-compatible object storage, Caddy HTTPS |
+| **Observability** | Structured JSON logs with request IDs, GlitchTip error monitoring, automated issue triage |
+| **System design** | Stateless API, horizontally scalable workers, process isolation with resource limits, reproducible runs with sealed receipts |
+
 ## Engineering
 
 <details>
@@ -154,12 +204,13 @@ Write-ups: [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY.md) 
 
 </details>
 
-## Honest limitations
+## Prototype scope
 
-- Results are on historical public datasets. Fintestix is not connected to any bank and makes no compliance claims.
-- IEEE-CIS and Home Credit allow only non-commercial use; Fintestix never ships those files, users upload data they are allowed to use.
-- The free hosting tier sleeps when idle, so the first request after a quiet period is slow.
-- Online payment for the Pro plan is planned; for now an admin upgrades accounts.
+- A complete, deployed prototype: sign-up, projects, analysis, reports and admin all work end to end.
+- Results are on historical public datasets. Fintestix is an assurance tool; it is not connected to any bank and makes no compliance claims.
+- Users upload data they are allowed to use; datasets with non-commercial terms are never shipped with the product.
+- The live demo runs on a free tier that sleeps when idle, so the first visit can take about a minute to wake.
+- Free and Pro plans are enforced on the server; Pro accounts are assigned by an admin.
 
 ## About the source code
 
